@@ -33,7 +33,7 @@ deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf bot_${BUILD_NUMBER}'
 	ssh ${HOST} -p ${PORT} 'mkdir bot_${BUILD_NUMBER}'
 	scp -P ${PORT} docker-compose-production.yml ${HOST}:bot_${BUILD_NUMBER}/docker-compose-production.yml
-	ssh ${HOST} -p ${PORT} 'cd bot_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=auction" >> .env'
+	ssh ${HOST} -p ${PORT} 'cd bot_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=bot" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd bot_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd bot_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd bot_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
