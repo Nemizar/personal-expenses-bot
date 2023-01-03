@@ -1,0 +1,31 @@
+{
+    "name": "nemizar/personal-expenses-bot",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Nemizar\\PersonalExpensesBot\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nemizar"
+        }
+    ],
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^8.2",
+        "php-di/php-di": "^6.4",
+        "slim/psr7": "^1.6",
+        "slim/slim": "^4.11",
+        "symfony/console": "^6.2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "scripts": {
+        "app": "php bin/app.php --ansi"
+    }
+}

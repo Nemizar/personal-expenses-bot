@@ -5,4 +5,4 @@ COPY ./docker/prod/nginx/conf.d /etc/nginx/conf.d
 
 WORKDIR /app
 
-COPY ./app ./
+COPY ./ ./

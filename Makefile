@@ -1,4 +1,4 @@
-init: docker-down-clear docker-pull docker-build docker-up
+init: docker-down-clear docker-pull docker-build docker-up composer-install
 up: docker-up
 down: docker-down
 restart: down up
@@ -18,8 +18,12 @@ docker-pull:
 docker-build:
 	docker-compose build --pull
 
+composer-install:
+	docker-compose run --rm php-cli composer install
+
 build:
 	docker --log-level=debug build --pull --file=docker/prod/php-fpm/Dockerfile --tag=${REGISTRY}/php-fpm:${IMAGE_TAG} .
+	docker --log-level=debug build --pull --file=docker/prod/php-cli/Dockerfile --tag=${REGISTRY}/php-cli:${IMAGE_TAG} .
 	docker --log-level=debug build --pull --file=docker/prod/nginx/Dockerfile --tag=${REGISTRY}/nginx:${IMAGE_TAG} .
 
 try-build:
@@ -28,6 +32,7 @@ try-build:
 push:
 	docker push ${REGISTRY}/nginx:${IMAGE_TAG}
 	docker push ${REGISTRY}/php-fpm:${IMAGE_TAG}
+	docker push ${REGISTRY}/php-cli:${IMAGE_TAG}
 
 deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf bot_${BUILD_NUMBER}'

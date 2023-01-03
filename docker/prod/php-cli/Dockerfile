@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-alpine as builder
+FROM php:8.2-cli-alpine AS builder
 
 RUN apk update && apk add unzip
 
@@ -14,13 +14,13 @@ RUN composer install --no-dev --prefer-dist --no-progress --no-suggest --no-scri
     && rm -rf /root/.composer/cache
 
 #####
-FROM php:8.2-fpm-alpine
 
-RUN docker-php-ext-install opcache
+FROM php:8.2-cli-alpine
 
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
 COPY ./docker/common/php/conf.d /usr/local/etc/php/conf.d
+COPY ./docker/prod/common/php/conf.d /usr/local/etc/php/conf.d
 
 WORKDIR /app
 
