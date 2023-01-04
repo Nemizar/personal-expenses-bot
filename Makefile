@@ -21,6 +21,12 @@ docker-build:
 composer-install:
 	docker-compose run --rm php-cli composer install
 
+lint:
+	docker-compose run --rm php-cli composer cs-check
+
+analyze:
+	docker-compose run --rm php-cli composer phpstan
+
 build:
 	docker --log-level=debug build --pull --file=docker/prod/php-fpm/Dockerfile --tag=${REGISTRY}/php-fpm:${IMAGE_TAG} .
 	docker --log-level=debug build --pull --file=docker/prod/php-cli/Dockerfile --tag=${REGISTRY}/php-cli:${IMAGE_TAG} .
